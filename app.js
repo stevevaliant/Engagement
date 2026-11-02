@@ -18,25 +18,41 @@
   const plural = (n, w) => `${n} ${w}${n === 1 ? '' : 's'}`;
 
   /* ---------------- Starting layout ---------------- */
-  // Layout based on the Skyland Hammurabi reception room photos:
-  // couple's table and the "H" stage face each other across the dance floor,
-  // a runway leads from the dance floor to the entrance doors, tables on both sides.
+  // Layout from the Skyland Hammurabi venue photos and hand-drawn plan:
+  // DJ at one end of the dance floor, the couple's table at the other.
+  // Entrance side: 11 tables split by the corridor to the door. Far side: 13 tables, no split.
   const SEED_TABLES = [
-    // Entrance side, above the runway
-    [54, 15], [66, 15], [78, 15], [54, 33], [66, 33], [78, 33],
-    // Entrance side, below the runway
-    [54, 67], [66, 67], [78, 67], [54, 85], [66, 85], [78, 85],
-    // Back section, behind the dance floor
-    [9, 15], [9, 38], [9, 61], [9, 84], [22, 15], [22, 38], [22, 61], [22, 84],
+    [9, 12],
+    [21, 12],
+    [33, 12],
+    [9, 33],
+    [21, 33],
+    [33, 33],
+    [9, 67],
+    [21, 67],
+    [33, 67],
+    [9, 88],
+    [21, 88],
+    [67, 10],
+    [79, 10],
+    [91, 10],
+    [67, 30],
+    [79, 30],
+    [91, 30],
+    [67, 50],
+    [79, 50],
+    [91, 50],
+    [67, 70],
+    [79, 70],
+    [91, 70],
+    [91, 90],
   ];
   const SEED_AREAS = [
-    ["Couple's Table", 'stage', 30, 87, 18, 11],
-    ['H Stage / DJ', 'other', 32, 2, 14, 9],
-    ['Dance Floor', 'dance', 31, 16, 16, 68],
-    ['Runway', 'dance', 47, 45, 44, 10],
-    ['Entrance', 'entrance', 92, 40, 7, 20],
-    ['Bar', 'bar', 87, 2, 12, 18],
-    ['Exit', 'entrance', 12, 93, 8, 6],
+    ["DJ", 'other', 41, 2, 18, 8],
+    ["Rebecca & Steve", 'stage', 38, 89, 24, 9],
+    ["Dance Floor", 'dance', 42, 13, 16, 73],
+    ["Corridor", 'dance', 9, 45, 33, 10],
+    ["Entrance", 'entrance', 1, 41, 8, 18],
   ];
 
   function seedData() {
@@ -50,7 +66,7 @@
 
   /* ---------------- Storage: Supabase or this device ---------------- */
   function localBackend() {
-    const KEY = 'skyland-hammurabi-v2';
+    const KEY = 'skyland-hammurabi-v3';
     let db = null;
     try { db = JSON.parse(localStorage.getItem(KEY)); } catch (e) { /* ignore */ }
     if (!db || !Array.isArray(db.seating_tables)) db = seedData();
