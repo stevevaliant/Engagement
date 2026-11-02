@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Skyland Hammurabi Tables</title>
+  <meta name="theme-color" content="#1f4d3f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>Skyland Hammurabi</h1>
+      <p class="sub">Reception table planner</p>
+    </div>
+    <span id="mode" class="mode"></span>
+  </header>
+
+  <section id="stats" class="stats" aria-label="Summary"></section>
+
+  <div class="toolbar">
+    <button type="button" id="btn-add-table" class="btn primary">+ Add table</button>
+    <button type="button" id="btn-add-guests" class="btn">+ Add guests</button>
+    <button type="button" id="btn-arrange" class="btn">Arrange room</button>
+    <button type="button" id="btn-print" class="btn ghost">Print list</button>
+  </div>
+
+  <div id="edit-bar" class="edit-bar" hidden>
+    <p>Drag tables and areas to match the room. Drag the corner of an area to resize it. Tap an area to rename it.</p>
+    <div class="edit-actions">
+      <button type="button" id="btn-add-area" class="btn">+ Add area</button>
+      <button type="button" id="btn-photo" class="btn">Floor plan photo</button>
+      <button type="button" id="btn-photo-remove" class="btn ghost" hidden>Remove photo</button>
+      <button type="button" id="btn-done" class="btn primary">Done</button>
+    </div>
+    <input type="file" id="photo-input" accept="image/*" hidden>
+  </div>
+
+  <main class="layout">
+    <section class="room">
+      <div class="map-wrap">
+        <div id="map" class="map" aria-label="Reception room map"></div>
+      </div>
+      <p class="swipe-hint">Swipe the room sideways to see all of it.</p>
+      <ul class="legend" aria-label="Legend">
+        <li><i class="dot empty"></i>Empty</li>
+        <li><i class="dot part"></i>Has room</li>
+        <li><i class="dot full"></i>Full</li>
+        <li class="hint">Tap a table to see who is sitting there.</li>
+      </ul>
+    </section>
+
+    <aside class="guests" aria-label="Guest list">
+      <div class="guests-head">
+        <h2>Guests</h2>
+        <input id="guest-search" type="search" placeholder="Search names or tables" autocomplete="off">
+        <div class="tabs" role="tablist">
+          <button type="button" role="tab" data-filter="all" class="on">All</button>
+          <button type="button" role="tab" data-filter="unseated">Not seated</button>
+          <button type="button" role="tab" data-filter="seated">Seated</button>
+        </div>
+      </div>
+      <ul id="guest-list" class="guest-list"></ul>
+    </aside>
+  </main>
+
+  <!-- Table details -->
+  <dialog id="table-dialog" class="dlg">
+    <div class="dlg-head">
+      <input id="tm-name" class="name-input" aria-label="Table name" maxlength="40">
+      <button type="button" class="icon-btn" data-close aria-label="Close" autofocus>&times;</button>
+    </div>
+    <div class="tm-summary">
+      <div id="tm-ring" class="tm-ring"></div>
+      <div>
+        <p id="tm-count" class="big"></p>
+        <p id="tm-free" class="muted"></p>
+      </div>
+    </div>
+    <h3>Sitting here</h3>
+    <ul id="tm-guests" class="guest-list compact"></ul>
+    <div class="add-row">
+      <input id="tm-add" placeholder="Type a guest's name" autocomplete="off" maxlength="80">
+      <button type="button" id="tm-add-btn" class="btn primary">Add</button>
+    </div>
+    <div id="tm-picks" class="picks"></div>
+    <div class="tm-cap">
+      <span>Seats at this table</span>
+      <div class="stepper">
+        <button type="button" id="cap-minus" aria-label="Fewer seats">&minus;</button>
+        <output id="tm-cap"></output>
+        <button type="button" id="cap-plus" aria-label="More seats">+</button>
+      </div>
+    </div>
+    <div class="dlg-foot">
+      <button type="button" id="tm-delete" class="btn danger">Delete table</button>
+      <button type="button" class="btn primary" data-close>Done</button>
+    </div>
+  </dialog>
+
+  <!-- Add guests -->
+  <dialog id="guests-dialog" class="dlg">
+    <div class="dlg-head">
+      <h2>Add guests</h2>
+      <button type="button" class="icon-btn" data-close aria-label="Close">&times;</button>
+    </div>
+    <label class="field">Names, one per line
+      <textarea id="gd-names" rows="8" placeholder="Sara Haddad&#10;Omar Haddad&#10;Lina Khoury"></textarea>
+    </label>
+    <label class="field">Seat them at
+      <select id="gd-table"></select>
+    </label>
+    <div class="dlg-foot">
+      <button type="button" class="btn" data-close>Cancel</button>
+      <button type="button" id="gd-save" class="btn primary">Add guests</button>
+    </div>
+  </dialog>
+
+  <!-- Room area (dance floor, bar...) -->
+  <dialog id="area-dialog" class="dlg">
+    <div class="dlg-head">
+      <h2>Room area</h2>
+      <button type="button" class="icon-btn" data-close aria-label="Close">&times;</button>
+    </div>
+    <label class="field">Name
+      <input id="ad-label" maxlength="40">
+    </label>
+    <div class="dlg-foot">
+      <button type="button" id="ad-delete" class="btn danger">Delete area</button>
+      <button type="button" id="ad-save" class="btn primary">Save</button>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <section id="print-sheet" class="print-sheet"></section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
