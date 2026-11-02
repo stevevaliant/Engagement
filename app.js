@@ -18,26 +18,39 @@
   const plural = (n, w) => `${n} ${w}${n === 1 ? '' : 's'}`;
 
   /* ---------------- Starting layout ---------------- */
+  // Layout based on the Skyland Hammurabi reception room photos:
+  // couple's table and the "H" stage face each other across the dance floor,
+  // a runway leads from the dance floor to the entrance doors, tables on both sides.
+  const SEED_TABLES = [
+    // Entrance side, above the runway
+    [54, 15], [66, 15], [78, 15], [54, 33], [66, 33], [78, 33],
+    // Entrance side, below the runway
+    [54, 67], [66, 67], [78, 67], [54, 85], [66, 85], [78, 85],
+    // Back section, behind the dance floor
+    [9, 15], [9, 38], [9, 61], [9, 84], [22, 15], [22, 38], [22, 61], [22, 84],
+  ];
+  const SEED_AREAS = [
+    ["Couple's Table", 'stage', 30, 87, 18, 11],
+    ['H Stage / DJ', 'other', 32, 2, 14, 9],
+    ['Dance Floor', 'dance', 31, 16, 16, 68],
+    ['Runway', 'dance', 47, 45, 44, 10],
+    ['Entrance', 'entrance', 92, 40, 7, 20],
+    ['Bar', 'bar', 87, 2, 12, 18],
+    ['Exit', 'entrance', 12, 93, 8, 6],
+  ];
+
   function seedData() {
-    const pos = [[9, 26], [22, 26], [9, 48], [22, 48], [9, 70], [22, 70], [68, 26], [81, 26], [68, 48], [81, 48]];
     return {
-      seating_tables: pos.map(([x, y], i) => ({ id: uid(), name: `Table ${i + 1}`, capacity: DEFAULT_CAPACITY, x, y, sort_order: i + 1 })),
+      seating_tables: SEED_TABLES.map(([x, y], i) => ({ id: uid(), name: `Table ${i + 1}`, capacity: DEFAULT_CAPACITY, x, y, sort_order: i + 1 })),
       guests: [],
-      venue_items: [
-        { id: uid(), label: "Couple's Table", kind: 'stage', x: 34, y: 4, w: 32, h: 10 },
-        { id: uid(), label: 'Dance Floor', kind: 'dance', x: 36, y: 34, w: 24, h: 30 },
-        { id: uid(), label: 'DJ', kind: 'other', x: 70, y: 4, w: 10, h: 10 },
-        { id: uid(), label: 'Cake & Gifts', kind: 'other', x: 4, y: 4, w: 14, h: 10 },
-        { id: uid(), label: 'Bar', kind: 'bar', x: 90, y: 58, w: 8, h: 28 },
-        { id: uid(), label: 'Entrance', kind: 'entrance', x: 42, y: 90, w: 16, h: 8 },
-      ],
+      venue_items: SEED_AREAS.map(([label, kind, x, y, w, h]) => ({ id: uid(), label, kind, x, y, w, h })),
       app_settings: [],
     };
   }
 
   /* ---------------- Storage: Supabase or this device ---------------- */
   function localBackend() {
-    const KEY = 'skyland-hammurabi-v1';
+    const KEY = 'skyland-hammurabi-v2';
     let db = null;
     try { db = JSON.parse(localStorage.getItem(KEY)); } catch (e) { /* ignore */ }
     if (!db || !Array.isArray(db.seating_tables)) db = seedData();

@@ -4,7 +4,7 @@ A simple app to organise the reception seating. Open `index.html` (or the deploy
 
 ## What it does
 
-- **Room map** of the reception: tables, dance floor, couple's table, DJ, bar, cake & gifts, entrance.
+- **Room map** of the Skyland Hammurabi reception, based on venue photos: 20 tables of 10, the couple's table and H stage either side of the dance floor, the runway to the entrance, the bar and the exit.
 - **Tap a table** to see who's sitting there and how many seats are left (10 per table by default).
 - **Add guests** one at a time or paste a whole list (one name per line).
 - **Add tables** any time with "+ Add table". Change the seats on a single table with − / +.
@@ -18,7 +18,7 @@ Without Supabase details, the app runs in **demo mode** and saves only on the de
 
 To share one live plan across phones:
 
-1. Run `supabase/migrations/001_seating.sql` in the Supabase SQL editor (creates the tables, the capacity rule, live updates, the `venue-photos` bucket and the starting 10 tables).
+1. Run `supabase/migrations/001_seating.sql` in the Supabase SQL editor (creates the tables, the capacity rule, live updates, the `venue-photos` bucket and the starting 20 tables).
 2. Put the project URL and publishable (anon) key in `config.js`.
 
 Database tables: `seating_tables`, `guests`, `venue_items`, `app_settings`. Photo bucket: `venue-photos`.

@@ -90,18 +90,35 @@ on conflict (id) do nothing;
 create policy "venue photos upload" on storage.objects
   for insert to anon, authenticated with check (bucket_id = 'venue-photos');
 
--- Starting layout: 10 tables of 10 around the dance floor. Drag to match the real room.
+-- Starting layout matching the Skyland Hammurabi room: 20 tables of 10.
+-- Couple's table and the H stage face each other across the dance floor; a runway leads to the entrance.
 insert into public.seating_tables (name, capacity, x, y, sort_order) values
-  ('Table 1', 10,  9, 26, 1), ('Table 2', 10, 22, 26, 2),
-  ('Table 3', 10,  9, 48, 3), ('Table 4', 10, 22, 48, 4),
-  ('Table 5', 10,  9, 70, 5), ('Table 6', 10, 22, 70, 6),
-  ('Table 7', 10, 68, 26, 7), ('Table 8', 10, 81, 26, 8),
-  ('Table 9', 10, 68, 48, 9), ('Table 10', 10, 81, 48, 10);
+  ('Table 1', 10, 54, 15, 1),
+  ('Table 2', 10, 66, 15, 2),
+  ('Table 3', 10, 78, 15, 3),
+  ('Table 4', 10, 54, 33, 4),
+  ('Table 5', 10, 66, 33, 5),
+  ('Table 6', 10, 78, 33, 6),
+  ('Table 7', 10, 54, 67, 7),
+  ('Table 8', 10, 66, 67, 8),
+  ('Table 9', 10, 78, 67, 9),
+  ('Table 10', 10, 54, 85, 10),
+  ('Table 11', 10, 66, 85, 11),
+  ('Table 12', 10, 78, 85, 12),
+  ('Table 13', 10, 9, 15, 13),
+  ('Table 14', 10, 9, 38, 14),
+  ('Table 15', 10, 9, 61, 15),
+  ('Table 16', 10, 9, 84, 16),
+  ('Table 17', 10, 22, 15, 17),
+  ('Table 18', 10, 22, 38, 18),
+  ('Table 19', 10, 22, 61, 19),
+  ('Table 20', 10, 22, 84, 20);
 
 insert into public.venue_items (label, kind, x, y, w, h) values
-  ('Couple''s Table', 'stage', 34, 4, 32, 10),
-  ('Dance Floor', 'dance', 36, 34, 24, 30),
-  ('DJ', 'other', 70, 4, 10, 10),
-  ('Cake & Gifts', 'other', 4, 4, 14, 10),
-  ('Bar', 'bar', 90, 58, 8, 28),
-  ('Entrance', 'entrance', 42, 90, 16, 8);
+  ('Couple''s Table', 'stage', 30, 87, 18, 11),
+  ('H Stage / DJ', 'other', 32, 2, 14, 9),
+  ('Dance Floor', 'dance', 31, 16, 16, 68),
+  ('Runway', 'dance', 47, 45, 44, 10),
+  ('Entrance', 'entrance', 92, 40, 7, 20),
+  ('Bar', 'bar', 87, 2, 12, 18),
+  ('Exit', 'entrance', 12, 93, 8, 6);

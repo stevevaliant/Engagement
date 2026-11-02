@@ -70,7 +70,7 @@ h1, h2, h3 { margin: 0; }
   border: 6px solid #e9e1d3; border-radius: var(--radius);
 }
 .map.has-photo { background-size: 100% 100%; background-repeat: no-repeat; background-position: center; }
-.map.has-photo .area { background: rgba(255,255,255,.55); }
+.map.has-photo .area:not(.area-dance) { background: rgba(255,255,255,.55); }
 
 .area {
   position: absolute; display: flex; align-items: center; justify-content: center; text-align: center;
@@ -78,7 +78,11 @@ h1, h2, h3 { margin: 0; }
   color: #7a6d57; font-size: clamp(10px, 1.3cqw, 15px); font-weight: 600; letter-spacing: .3px;
   padding: 4px; user-select: none; -webkit-user-select: none;
 }
-.area-dance { background: repeating-conic-gradient(rgba(184,137,59,.10) 0 25%, rgba(255,255,255,.35) 0 50%) 0 0 / 22px 22px; border-color: #d8bd8c; }
+.area-dance {
+  background:
+    radial-gradient(circle, rgba(255,255,255,.55) 0 1px, transparent 1.6px) 0 0 / 26px 26px,
+    linear-gradient(135deg, #2a2440, #17141f 60%, #2b2142);
+  border: 1px solid #3a3150; color: #e9e2ff; }
 .area-bar { background: rgba(31,77,63,.08); border-color: rgba(31,77,63,.3); color: var(--brand); }
 .area-stage { background: rgba(184,137,59,.14); border-style: solid; border-color: #d8bd8c; color: #8a6424; }
 .area-entrance { border-style: solid; background: #fff; }
