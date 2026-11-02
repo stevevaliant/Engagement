@@ -4,7 +4,7 @@ A simple app to organise the reception seating. Open `index.html` (or the deploy
 
 ## What it does
 
-- **Room map** of the Skyland Hammurabi reception, from the venue photos and hand-drawn plan: the dance floor down the middle with the DJ at one end and Rebecca & Steve's table at the other. The entrance side has 11 tables split by the corridor to the door. The far side has 13 tables. That's 24 tables of 10, and everything can be moved, renamed, added or removed.
+- **Room map** of the Skyland Hammurabi reception, from the venue photos and hand-drawn plan: the dance floor down the middle. Walking in the entrance, Rebecca & Steve's table is on the left and the DJ is on the right. The entrance side has 11 tables split by the corridor to the door. The far side has 13 tables. That's 24 tables of 10, and everything can be moved, renamed, added or removed.
 - **Tap a table** to see who's sitting there and how many seats are left (10 per table by default).
 - **Add guests** one at a time or paste a whole list (one name per line).
 - **Add tables** any time with "+ Add table". Change the seats on a single table with − / +.

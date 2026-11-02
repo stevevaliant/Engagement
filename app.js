@@ -19,7 +19,8 @@
 
   /* ---------------- Starting layout ---------------- */
   // Layout from the Skyland Hammurabi venue photos and hand-drawn plan:
-  // DJ at one end of the dance floor, the couple's table at the other.
+  // Walking in the entrance: the couple's table is on the left, the DJ on the right,
+  // at either end of the dance floor.
   // Entrance side: 11 tables split by the corridor to the door. Far side: 13 tables, no split.
   const SEED_TABLES = [
     [9, 12],
@@ -48,8 +49,8 @@
     [91, 90],
   ];
   const SEED_AREAS = [
-    ["DJ", 'other', 41, 2, 18, 8],
-    ["Rebecca & Steve", 'stage', 38, 89, 24, 9],
+    ["Rebecca & Steve", 'stage', 38, 2, 24, 9],
+    ["DJ", 'other', 41, 89, 18, 8],
     ["Dance Floor", 'dance', 42, 13, 16, 73],
     ["Corridor", 'dance', 9, 45, 33, 10],
     ["Entrance", 'entrance', 1, 41, 8, 18],
@@ -66,7 +67,7 @@
 
   /* ---------------- Storage: Supabase or this device ---------------- */
   function localBackend() {
-    const KEY = 'skyland-hammurabi-v3';
+    const KEY = 'skyland-hammurabi-v4';
     let db = null;
     try { db = JSON.parse(localStorage.getItem(KEY)); } catch (e) { /* ignore */ }
     if (!db || !Array.isArray(db.seating_tables)) db = seedData();

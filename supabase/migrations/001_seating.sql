@@ -91,7 +91,7 @@ create policy "venue photos upload" on storage.objects
   for insert to anon, authenticated with check (bucket_id = 'venue-photos');
 
 -- Starting layout matching the Skyland Hammurabi room: 24 tables of 10.
--- DJ at one end of the dance floor, the couple's table at the other.
+-- Walking in the entrance: the couple's table is on the left, the DJ on the right.
 -- Entrance side: tables 1-11, split by the corridor. Far side: tables 12-24, no split.
 insert into public.seating_tables (name, capacity, x, y, sort_order) values
   ('Table 1', 10, 9, 12, 1),
@@ -120,8 +120,8 @@ insert into public.seating_tables (name, capacity, x, y, sort_order) values
   ('Table 24', 10, 91, 90, 24);
 
 insert into public.venue_items (label, kind, x, y, w, h) values
-  ('DJ', 'other', 41, 2, 18, 8),
-  ('Rebecca & Steve', 'stage', 38, 89, 24, 9),
+  ('Rebecca & Steve', 'stage', 38, 2, 24, 9),
+  ('DJ', 'other', 41, 89, 18, 8),
   ('Dance Floor', 'dance', 42, 13, 16, 73),
   ('Corridor', 'dance', 9, 45, 33, 10),
   ('Entrance', 'entrance', 1, 41, 8, 18);
